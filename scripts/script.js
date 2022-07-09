@@ -26,3 +26,18 @@ const operate = function (operationNum, operandOne, operandTwo) {
             return null;
     }
 }
+
+// Обновить значение, отображаемое на дисплее
+const updateDisplay = function (newContent = null) {
+    if (newContent) displayValue = newContent;
+    display.textContent = displayValue;
+}
+
+let displayValue = 0;
+const display = document.querySelector('.calculator-display');
+updateDisplay();
+
+const numButtons = document.querySelectorAll('.number');
+numButtons.forEach(button => {
+    button.addEventListener('click', event => updateDisplay(event.target.textContent))
+});
