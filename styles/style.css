@@ -23,7 +23,7 @@ body {
 
 .calculator-display {
     border-bottom: 4px solid #2a2a2a;
-    font-size: 24px;
+    font-size: 56px;
     color: #efefef;
     background-color: #1a1a1a;
     text-align: right;
@@ -32,7 +32,7 @@ body {
 }
 
 .calculator-display div {
-    height: 24px;
+    height: 56px;
 }
 
 .operand-one {

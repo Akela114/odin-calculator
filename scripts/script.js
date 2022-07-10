@@ -1,5 +1,3 @@
-const PRECISION = 10 ** 10;
-
 // Вычислить сумму двух чисел
 const add = (summandOne, summandTwo) => summandOne + summandTwo;
 
@@ -31,7 +29,12 @@ const operate = function (operationType, operandOne, operandTwo) {
 
 // Обновить значение, отображаемое на дисплее
 const updateDisplay = function () {
-    displayOne.textContent = Math.round(operandOne * PRECISION) / PRECISION;
+    const maxLength = Math.max(operandOne.toString().length + 1, operandTwo.toString().length + 1);
+    let fontSizeNew = maxLength > 9 
+        ? Math.max(fontSize - Math.round((maxLength - 9) * 3.5), fontSize - Math.round(9 * 3.5))
+        : fontSize;
+    displayOne.style.fontSize = displayTwo.style.fontSize = fontSizeNew + 'px';
+    displayOne.textContent = operandOne;
     if (!operationType && isFractionalPart && (operandOne % 1 === 0)) {
         displayOne.textContent += '.';
         for (let i = isFractionalPart; i < 0.1; i *= 10) {
@@ -40,7 +43,7 @@ const updateDisplay = function () {
     }
     if (operationType) {
         displayOne.textContent += operationType;
-        displayTwo.textContent = Math.round(operandTwo * PRECISION) / PRECISION;
+        displayTwo.textContent = operandTwo;
         if (isFractionalPart && (operandTwo % 1 === 0)) {
             displayTwo.textContent += '.';
             for (let i = isFractionalPart; i < 0.1; i *= 10) {
@@ -52,6 +55,7 @@ const updateDisplay = function () {
     }
 }
 
+let fontSize = 56;
 let operandOne = 0;
 let operandTwo = 0;
 let operationType = null;
@@ -67,6 +71,8 @@ numButtons.forEach(button => {
         if (!operationType) {
             if (isFractionalPart) {
                 operandOne += isFractionalPart * +event.target.textContent;
+                const fraction = Math.round(1 / isFractionalPart);
+                operandOne = Math.round(operandOne * fraction) / fraction;
                 isFractionalPart /= 10;
             } else {
                 operandOne *= 10;
@@ -75,6 +81,8 @@ numButtons.forEach(button => {
         } else {
             if (isFractionalPart) {
                 operandTwo += isFractionalPart * +event.target.textContent;
+                const fraction = Math.round(1 / isFractionalPart);
+                operandTwo = Math.round(operandTwo * fraction) / fraction;
                 isFractionalPart /= 10;
             } else {
                 operandTwo *= 10;
