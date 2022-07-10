@@ -31,35 +31,23 @@ const operate = function (operationType, operandOne, operandTwo) {
 
 // Обновить значение, отображаемое на дисплее
 const updateDisplay = function () {
-    const maxLength = Math.max(operandOne.toString().length + 1, operandTwo.toString().length + 1);
+    const maxLength = Math.max(operandOne.length + 1, operandTwo.length + 1);
     let fontSizeNew = maxLength > 9 
         ? Math.max(fontSize - Math.round((maxLength - 9) * 3.5), fontSize - Math.round(9 * 3.5))
         : fontSize;
     displayOne.style.fontSize = displayTwo.style.fontSize = fontSizeNew + 'px';
     displayOne.textContent = operandOne;
-    if (!operationType && isFractionalPart && (operandOne % 1 === 0)) {
-        displayOne.textContent += '.';
-        for (let i = isFractionalPart; i < 0.1; i *= 10) {
-            displayOne.textContent += 0;
-        }
-    }
     if (operationType) {
         displayOne.textContent += operationType;
         displayTwo.textContent = operandTwo;
-        if (isFractionalPart && (operandTwo % 1 === 0)) {
-            displayTwo.textContent += '.';
-            for (let i = isFractionalPart; i < 0.1; i *= 10) {
-                displayTwo.textContent += 0;
-            }
-        }
     } else {
         displayTwo.textContent = '';
     }
 }
 
 let fontSize = 56;
-let operandOne = 0;
-let operandTwo = 0;
+let operandOne = '0';
+let operandTwo = '0';
 let operationType = null;
 let isFractionalPart = false;
 
@@ -72,23 +60,19 @@ numButtons.forEach(button => {
     button.addEventListener('click', event => {
         if (!operationType) {
             if (isFractionalPart) {
-                operandOne += isFractionalPart * +event.target.textContent;
-                const fraction = Math.round(1 / isFractionalPart);
-                operandOne = Math.round(operandOne * fraction) / fraction;
-                isFractionalPart /= 10;
+                if (!operandOne.includes('.')) operandOne += '.';
+                operandOne += event.target.textContent;
             } else {
-                operandOne *= 10;
-                operandOne += +event.target.textContent;
+                if (operandOne === '0') operandOne = '';
+                operandOne += event.target.textContent;
             }
         } else {
             if (isFractionalPart) {
-                operandTwo += isFractionalPart * +event.target.textContent;
-                const fraction = Math.round(1 / isFractionalPart);
-                operandTwo = Math.round(operandTwo * fraction) / fraction;
-                isFractionalPart /= 10;
+                if (!operandTwo.includes('.')) operandTwo += '.';
+                operandTwo += event.target.textContent;
             } else {
-                operandTwo *= 10;
-                operandTwo += +event.target.textContent;
+                if (operandTwo === '0') operandTwo = '';
+                operandTwo += event.target.textContent;
             }
         }
         updateDisplay();
@@ -114,9 +98,9 @@ operationButtons.forEach(button => {
 const performOperation = (opType = null) => {
     if (operationType) {
         if (operandTwo || operationType != '/') {
-            operandOne = Math.round(operate(operationType, operandOne, operandTwo) * PRECISION) / PRECISION;
+            operandOne = Math.round(operate(operationType, +operandOne, +operandTwo) * PRECISION) / PRECISION;
             operationType = opType;
-            operandTwo = 0;
+            operandTwo = '0';
             isFractionalPart = false;
             updateDisplay();
         } else {
@@ -130,8 +114,8 @@ equalButton.addEventListener('click', () => performOperation());
 
 // Сбросить данные
 const resetData = () => {
-    operandOne = 0;
-    operandTwo = 0;
+    operandOne = '0';
+    operandTwo = '0';
     operationType = null;
     isFractionalPart = false;
     updateDisplay();
