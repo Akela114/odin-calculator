@@ -84,6 +84,7 @@ const updateCalculationsData = opType => {
     if (!operationType || !operandTwo) {
         operationType = opType;
         isFractionalPart = false;
+        dotButton.classList.remove('dot-pressed');
     }
     else performOperation(opType);
     updateDisplay();
@@ -102,6 +103,7 @@ const performOperation = (opType = null) => {
             operationType = opType;
             operandTwo = '0';
             isFractionalPart = false;
+            dotButton.classList.remove('dot-pressed');
             updateDisplay();
         } else {
             alert('Деление на 0 не допускается');
@@ -118,6 +120,7 @@ const resetData = () => {
     operandTwo = '0';
     operationType = null;
     isFractionalPart = false;
+    dotButton.classList.remove('dot-pressed');
     updateDisplay();
 }
 
@@ -126,6 +129,7 @@ clearButton.addEventListener('click', resetData);
 
 const dotButton = document.querySelector('.operation-dot');
 dotButton.addEventListener('click', () => {
+    dotButton.classList.add('dot-pressed');
     if (!isFractionalPart) {
         isFractionalPart = 0.1;
         updateDisplay();

@@ -104,3 +104,7 @@ button {
     height: 30px;
     width: auto;
 }
+
+.dot-pressed {
+    background-color: #2a2a2a;
+}
