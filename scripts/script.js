@@ -1,3 +1,5 @@
+const PRECISION = 100000;
+
 // Вычислить сумму двух чисел
 const add = (summandOne, summandTwo) => summandOne + summandTwo;
 
@@ -112,7 +114,7 @@ operationButtons.forEach(button => {
 const performOperation = (opType = null) => {
     if (operationType) {
         if (operandTwo || operationType != '/') {
-            operandOne = operate(operationType, operandOne, operandTwo);
+            operandOne = Math.round(operate(operationType, operandOne, operandTwo) * PRECISION) / PRECISION;
             operationType = opType;
             operandTwo = 0;
             isFractionalPart = false;
