@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    border: 4px solid #2a2a2a;
+}
+
+.calculator-body {
+    display: flex;
+}
+
+.calculator-display {
+    border-bottom: 4px solid #2a2a2a;
+    font-size: 24px;
+    color: #efefef;
+    background-color: #1a1a1a;
+    text-align: right;
+    padding: 20px 10px 10px;
+    width: 324px;
+}
+
+.calculator-display div {
+    height: 24px;
+}
+
+.operand-one {
+    margin-bottom: 5px;
+}
+
+.operations-part {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    border-left: 4px solid #2a2a2a;
+}
+
+.numbers-part {
+    font-size: 0;
+    flex-shrink: 0;
+}
+
+button {
+    border-width: 0;
+    width: 80px;
+    font-size: 24px;
+    color: #efefef;
+    background-color: #3a3a3a;
+    transition-duration: 300ms;
+}
+
+.numbers-part button {
+    height: 80px;
+}
+
+.numbers-part button:hover {
+    color: #dfdfdf;
+    background-color: #5a5a5a;
+}
+
+.operations-part button {
+    height: 64px;
+    background-color: #c04000;
+}
+
+.operations-part button:hover {
+    color: #dfdfdf;
+    background-color: #a04000;
+}

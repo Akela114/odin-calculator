@@ -1,4 +1,4 @@
-const PRECISION = 10000;
+const PRECISION = 10 ** 10;
 
 // Вычислить сумму двух чисел
 const add = (summandOne, summandTwo) => summandOne + summandTwo;
@@ -31,22 +31,24 @@ const operate = function (operationType, operandOne, operandTwo) {
 
 // Обновить значение, отображаемое на дисплее
 const updateDisplay = function () {
-    display.textContent = Math.round(operandOne * PRECISION) / PRECISION;
+    displayOne.textContent = Math.round(operandOne * PRECISION) / PRECISION;
     if (!operationType && isFractionalPart && (operandOne % 1 === 0)) {
-        display.textContent += '.';
+        displayOne.textContent += '.';
         for (let i = isFractionalPart; i < 0.1; i *= 10) {
-            display.textContent += 0;
+            displayOne.textContent += 0;
         }
     }
     if (operationType) {
-        display.textContent += operationType;
-        display.textContent += Math.round(operandTwo * PRECISION) / PRECISION;
+        displayOne.textContent += operationType;
+        displayTwo.textContent = Math.round(operandTwo * PRECISION) / PRECISION;
         if (isFractionalPart && (operandTwo % 1 === 0)) {
-            display.textContent += '.';
+            displayTwo.textContent += '.';
             for (let i = isFractionalPart; i < 0.1; i *= 10) {
-                display.textContent += 0;
+                displayTwo.textContent += 0;
             }
         }
+    } else {
+        displayTwo.textContent = '';
     }
 }
 
@@ -55,7 +57,8 @@ let operandTwo = 0;
 let operationType = null;
 let isFractionalPart = false;
 
-const display = document.querySelector('.calculator-display');
+const displayOne = document.querySelector('.operand-one');
+const displayTwo = document.querySelector('.operand-two');
 updateDisplay();
 
 const numButtons = document.querySelectorAll('.number');
