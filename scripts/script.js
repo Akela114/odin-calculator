@@ -36,10 +36,10 @@ const updateDisplay = function () {
         ? Math.max(fontSize - Math.round((maxLength - 9) * 3.5), fontSize - Math.round(9 * 3.5))
         : fontSize;
     displayOne.style.fontSize = displayTwo.style.fontSize = fontSizeNew + 'px';
-    displayOne.textContent = operandOne;
+    displayOne.textContent = operandOne.length + 1 > 22 ? +operandOne : operandOne;
     if (operationType) {
-        displayOne.textContent += operationType;
-        displayTwo.textContent = operandTwo;
+        displayOne.textContent += ' ' + operationType;
+        displayTwo.textContent = operandTwo.length + 1 > 22 ? +operandTwo : operandTwo;
     } else {
         displayTwo.textContent = '';
     }
@@ -99,7 +99,7 @@ operationButtons.forEach(button => {
 const performOperation = (opType = null) => {
     if (operationType) {
         if (operandTwo || operationType != '/') {
-            operandOne = Math.round(operate(operationType, +operandOne, +operandTwo) * PRECISION) / PRECISION;
+            operandOne = (Math.round(operate(operationType, +operandOne, +operandTwo) * PRECISION) / PRECISION).toString();
             operationType = opType;
             operandTwo = '0';
             isFractionalPart = false;
